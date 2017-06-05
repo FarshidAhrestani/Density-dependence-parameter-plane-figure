@@ -1,0 +1,38 @@
+# Density Dependence Parameter plane figure
+# Figure 2 in: Ahrestani, F.S., Smith, W.K., Hebblewhite, M., Running, S. & Post, E. (2016) 
+# Variation in stability of elk and red deer populations with abiotic and biotic factors at the species distribution scale. 
+# Ecology 97:3184-3194.
+
+
+set.seed(324)
+par(mar=c(0,0,0,0)) # Remove unnecessary margins
+
+P0 <- ggplot(AR2, aes(x = b11, y = b2))
+P0 <- P0 + geom_point(size=I(5), alpha=I(0.5))
+P0 <- P0 + geom_text(aes(label=X), size=5, fontface="bold")
+P0 <- P0 + labs(x="", y=expression(paste(beta["2"] )), title="")
+P0 <- P0 + scale_y_continuous(limits = c(-1.2, 1.2), breaks=seq(-1, 1, by = 1)) 
+P0 <- P0 + scale_x_continuous(limits = c(-2.2, 2.2), breaks=seq(-2, 2, by = 1))
+P0 <- P0 + geom_segment(aes(x = -2, y = -1, xend = 2, yend = -1), show.legend = FALSE)
+P0 <- P0 + geom_segment(aes(x = -2, y = -1, xend = 0, yend = 1), show.legend = FALSE)
+P0 <- P0 + geom_segment(aes(x = 2, y = -1, xend = 0, yend = 1), show.legend = FALSE)
+P0 <- P0 + geom_segment(aes(x = 0, y = -1, xend = 0, yend = 1), show.legend = FALSE)
+P0 <- P0 + geom_text(label="I", aes(x=0.3, y=0.3), size=6, color="#FF3300")
+P0 <- P0 + geom_text(label="II", aes(x=-0.3, y=0.3), size=6, color="#FF3300")
+P0 <- P0 + geom_text(label="III", aes(x=-1, y=-0.8), size=6, color="#FF3300")
+P0 <- P0 + geom_text(label="IV", aes(x=1, y=-0.8), size=6, color="#FF3300")
+P0 <- P0 + geom_path(data=parabola, aes(x,y), color="black", size=1) 
+P0 <- P0 + coord_fixed(ratio = 1)
+P0 <- P0 + theme(
+axis.title.y = element_text(size=25, angle=90),
+axis.title.x = element_blank(),
+plot.title = element_blank(),
+axis.line = element_line(color="black", size=0),
+axis.text = element_text(size=22, color="black"),
+panel.grid.major = element_blank(),
+panel.grid.minor = element_blank(),
+plot.margin = unit(c(0.1,0.1,0.1,0), "cm"),
+panel.background =  element_rect(fill = NA, colour = "black", size = 1.5)
+)
+theme_set(theme_bw(24))
+print(P0)
